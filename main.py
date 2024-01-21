@@ -54,7 +54,7 @@ def convert_to_720p(input_path):
 
     if needPro:
         print(ffmpeg_command)
-        os.remove(output_path)
+        #os.remove(output_path)
         subprocess.run(ffmpeg_command)
         print(f"Video successfully converted. Saved at {output_path}")
     else:
