@@ -46,9 +46,9 @@ def convert_to_720p(input_path):
         needPro = 1
     if os.path.splitext(input_path)[1].lower() != '.mp4':
         needPro = 1
-    if resolution[0] >= 720 and resolution[1] >= 720:
+    if resolution[0] > 1280 and resolution[1] > 720:
         ffmpeg_command.append('-vf')
-        ffmpeg_command.append('scale=trunc(iw/2)*2:trunc(ih/2)*2')
+        ffmpeg_command.append('scale=trunc(iw/4)*2:trunc(ih/4)*2')
         needPro = 1
     ffmpeg_command.append(output_path)
 
@@ -187,7 +187,7 @@ def gif2mp4(gif, mp4):
         '-i', gif,
         '-c:v', 'libx264',  # 使用H.264编码器
         '-pix_fmt', 'yuv420p',  # 设置像素格式，通常需要
-        '-vf', 'scale=trunc(iw/2)*2:trunc(ih/2)*2',  # 将高度和宽度调整为2的倍数
+        '-vf', 'scale=-1:480', '-c:a','copy',  # 将高度和宽度调整为2的倍数
         '-y',  # 强制覆盖
         mp4
     ]
@@ -220,7 +220,7 @@ def proc_media(media_filename, face_filename, out_file_path, is_enhancement, ref
         '--headless',
         '--face-selector-mode', 'many',
         '--face-analyser-order', 'best-worst',
-        '--output-video-encoder', 'libx264',
+        '--output-video-encoder', 'libx265',
         '--face-mask-types','occlusion',
         #'--reference-frame-number', reference_frame_number,
         #'--reference-face-distance','1',
@@ -228,6 +228,7 @@ def proc_media(media_filename, face_filename, out_file_path, is_enhancement, ref
         '--execution-queue-count','2',
         '--video-memory-strategy','tolerant',
         '--temp-frame-format','bmp',
+        '--output-video-quality','50',
         '--output-video-preset','ultrafast',
         '--face-detector-score','0.25',
         '--frame-processors','face_swapper'
