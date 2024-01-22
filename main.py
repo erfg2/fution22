@@ -53,8 +53,8 @@ def convert_to_720p(input_path):
 		#else:
 		#	ffmpeg_command.append('-vf')
        # 	ffmpeg_command.append('scale=-1:720')
-		ffmpeg_command.append('-c:a')
-        ffmpeg_command.append('copy')
+		#ffmpeg_command.append('-c:a')
+        #ffmpeg_command.append('copy')
         needPro = 1
     ffmpeg_command.append(output_path)
 
