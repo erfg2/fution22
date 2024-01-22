@@ -228,7 +228,7 @@ def proc_media(media_filename, face_filename, out_file_path, is_enhancement, ref
         '--execution-queue-count','2',
         '--video-memory-strategy','tolerant',
         '--temp-frame-format','bmp',
-        '--output-video-quality','50',
+        '--output-video-quality','70',
         '--output-video-preset','ultrafast',
         '--face-detector-score','0.25',
         '--frame-processors','face_swapper'
