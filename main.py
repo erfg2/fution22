@@ -46,7 +46,10 @@ def convert_to_720p(input_path):
         needPro = 1
     if os.path.splitext(input_path)[1].lower() != '.mp4':
         needPro = 1
-    if resolution[0] >= 720 or resolution[1] >= 720:
+    if resolution[0] > 720 or resolution[1] > 720:
+        ffmpeg_command.append('-vf')
+        ffmpeg_command.append('scale=trunc(iw/4)*2:trunc(ih/4)*2')
+	if resolution[0] == 720 or resolution[1] == 720:
         ffmpeg_command.append('-vf')
         ffmpeg_command.append('scale=trunc(iw/2)*2:trunc(ih/2)*2')
 		#if: clip.duration > 120:
@@ -192,7 +195,7 @@ def gif2mp4(gif, mp4):
     ffmpeg_command = [
         'ffmpeg',
         '-i', gif,
-        '-c:v', 'libx264',  # 使用H.264编码器
+        '-c:v', 'libx265',  # 使用H.264编码器
         '-pix_fmt', 'yuv420p',  # 设置像素格式，通常需要
         '-vf', 'scale=-1:480', '-c:a','copy',  # 将高度和宽度调整为2的倍数
         '-y',  # 强制覆盖
