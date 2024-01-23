@@ -46,9 +46,9 @@ def convert_to_720p(input_path):
         needPro = 1
     if os.path.splitext(input_path)[1].lower() != '.mp4':
         needPro = 1
-	ffmpeg_command.append('-vf')
+    ffmpeg_command.append('-vf')
     ffmpeg_command.append('scale=scale=trunc(oh*dar/2)*2:480')
-	needPro = 1
+    needPro = 1
 		#if: clip.duration > 120:
         
 		#else:
