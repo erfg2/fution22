@@ -10,6 +10,8 @@ import time
 import hashlib
 import re
 from datetime import datetime
+import threading
+
 
 from moviepy.editor import VideoFileClip
 
@@ -245,32 +247,15 @@ def proc_media(media_filename, face_filename, out_file_path, is_enhancement, ref
     if is_enhancement:
         command.append('face_enhancer')
         
-    subprocess.run(command)
+   # subprocess.run(command)
+
+    try:
+        result = subprocess.run(command, timeout=3600, check=True, stdout=subprocess.PIPE)
+    except subprocess.TimeoutExpired:
+        print('执行命令超时')
+
     return
-    process = subprocess.Popen(
-        command,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True  # 用于以文本模式获取输出
-    )
-
-    while True:
-        output_line = process.stdout.readline()
-        if not output_line and process.poll() is not None:
-            break
-
-        # 在这里解析输出并提取进度信息
-        progress_match = re.search(r'Processing:\s+(\d+)%', output_line)
-        if progress_match:
-            progress_percentage = int(progress_match.group(1))
-            print(f'Progress: {progress_percentage}%')
-
-        # 如果你还想要其他输出，可以在这里处理
-
-        time.sleep(1)
-
-    process.stdout.close()
-    process.wait() 
+    
 
 
 def delete_files(file_paths):
@@ -286,7 +271,7 @@ def work():
     mode = 'cuda'
     if sys.argv[1] == 'cpu':
         mode = 'cpu'
-    data = callApi("workerGetTask", {'mode':mode})
+    data = callApi("workerGetTaskTest", {'mode':mode})
     print(data)
 
   #  proc_media('media_filename', 'face_filename', 'out_file_path')
