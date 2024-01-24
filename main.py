@@ -230,7 +230,7 @@ def proc_media(media_filename, face_filename, out_file_path, is_enhancement, ref
         '--headless',
         '--face-selector-mode', 'many',
         '--face-analyser-order', 'best-worst',
-        '--output-video-encoder', 'libx265',
+        '--output-video-encoder', 'libx264',
         '--face-mask-types','occlusion',
         #'--reference-frame-number', reference_frame_number,
         #'--reference-face-distance','1',
