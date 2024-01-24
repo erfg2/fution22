@@ -196,9 +196,8 @@ def gif2mp4(gif, mp4):
     ffmpeg_command = [
         'ffmpeg',
         '-i', gif,
-        '-c:v', 'libx265',  # 使用H.264编码器
+        '-c:v', 'libx264',  # 使用H.264编码器
         '-pix_fmt', 'yuv420p',  # 设置像素格式，通常需要
-        '-vf', 'scale=-1:480', '-c:a','copy',  # 将高度和宽度调整为2的倍数
         '-y',  # 强制覆盖
         mp4
     ]
