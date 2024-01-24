@@ -78,7 +78,7 @@ def calculate_md5(input_string):
     md5_hash = hashlib.md5(input_string.encode()).hexdigest()
     return md5_hash
 def upload_file(url, file_path):
-    chunk_size = 1024 * 1024  # 1MB
+    chunk_size = 1024 * 1024 * 2  # 1MB
     total_chunks = -(-os.path.getsize(file_path) // chunk_size)  # 總分片數，無條件取整
     current_chunk = 0
     data = {'name': '', 'link': ''}
